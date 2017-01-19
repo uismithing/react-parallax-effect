@@ -1,6 +1,6 @@
-## React Parallax
+## React Parallax Effect
 
-Parallax is a React component designed for deploying content into a view that relies on srolling for navigation. The content can be arranged in layers that mimic the parallax effect, and move at different velocities while scrolling. Layers are assigned by passing them in as children to the component. The first child node determines the scrolling range and motion of its siblings. The parallax differential is determined by the rangeIndex property assigned to each child. The value of the rangeIndex determines the magnitude of the speed differential applied to the layer. Callbacks are abailable for onReady and onChange, and a jumpTo() method is used to adjuste the scroll location of the first child. The effect presents the designer and user creative ways for presenting and interacting content.
+React-Parallax-Effect is a React component designed for deploying content into a view that relies on srolling for navigation. The content can be arranged in layers that mimic the parallax effect, and move at different velocities while scrolling. Layers are assigned by passing them in as children to the component. The first child node determines the scrolling range and motion of its siblings. The parallax differential is determined by the rangeIndex property assigned to each child. The value of the rangeIndex determines the magnitude of the speed differential applied to the layer. Callbacks are abailable for onReady and onChange, and a jumpTo() method is used to adjuste the scroll location of the first child. The effect presents the designer and user creative ways for presenting and interacting content.
 
 ### Features
   * Full React/Flux pattern
@@ -14,13 +14,13 @@ Parallax is a React component designed for deploying content into a view that re
 See the demo at [http://www.uismithing.com/main/parallax](http://www.uismithing.com/main/parallax).
 
 ### Repository
-[https://github.com/uismithing/react-parallax](https://github.com/uismithing/react-parallax)
+[https://github.com/uismithing/react-parallax-effect](https://github.com/uismithing/react-parallax-effect)
 
 ### Install
-`npm install react-parallax -s`
+`npm install react-parallax-effect -s`
 
 ### Deploy
-`import Parallax from "react-parallax"`
+`import Parallax from "react-parallax-effect"`
 ```html
 <Parallax ref="reactparallax" {...props}>
   <div ref="layer_0" rangeIndex="1">
