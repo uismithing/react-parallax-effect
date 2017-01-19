@@ -26,7 +26,7 @@ See the demo at [http://www.uismithing.com/main/parallax](http://www.uismithing.
   <!--
     - parallax children
     - rangeIndex must be >= 1
-    - the first child assumes scroll authority af sibling child layers
+    - the first child assumes scroll authority of sibling child layers
     - rangeIndex determines the scroll speed; e.g. rangeIndex=2 scrolls half the speed of rangeIndex=1
     - the stack order of the children determines thier order in the z-index stack
   -->
