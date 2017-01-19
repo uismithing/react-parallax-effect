@@ -23,13 +23,14 @@ See the demo at [http://www.uismithing.com/main/parallax](http://www.uismithing.
 `import Parallax from "react-parallax-effect"`
 ```html
 <Parallax ref="reactparallax" {...props}>
+  <!--
+    - parallax children
+    - rangeIndex must be >= 1
+    - the first child assumes scroll authority af sibling child layers
+    - rangeIndex determines the scroll speed; e.g. rangeIndex=2 scrolls half the speed of rangeIndex=1
+  -->
   <div ref="layer_0" rangeIndex="1">
-    <!--
-      - layer children
-      - rangeIndex must be >= 1
-      - the first child assumes scroll authority af all child layers
-      - rangeIndex determines the scroll speed; e.g. rangeIndex=2 scrolls half the speed of rangeIndex=1
-    -->
+    <!-- layer children -->
   </div>
   <div ref="layer_1" rangeIndex="2">
     <!-- layer children -->
