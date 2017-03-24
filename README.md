@@ -11,7 +11,7 @@ React-Parallax-Effect is a React component designed for deploying content into a
   * CSS Rich
 
 ### Learn more
-See the demo at [http://www.uismithing.com/main/parallax](http://www.uismithing.com/main/parallax).
+See the demo at [http://www.uismithing.com/main/wares/parallax](http://www.uismithing.com/main/wares/parallax).
 
 ### Repository
 [https://github.com/uismithing/react-parallax-effect](https://github.com/uismithing/react-parallax-effect)
