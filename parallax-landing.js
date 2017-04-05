@@ -5,15 +5,16 @@ import {Panel, Button} from "react-bootstrap";
 import Highlight from "react-syntax-highlight";
 import Parallax from "react-parallax-effect";
 //
-import {fetchParallaxHtml} from "../actions/actions";
-import {fetchParallaxPropsexampleJs} from "../actions/actions";
-import {fetchParallaxMethodsexampleJs} from "../actions/actions";
-import {fetchParallaxPropsDemoexampleJson} from "../actions/actions";
-import {fetchParallaxCssDemoexampleCss} from "../actions/actions";
-import {fetchParallaxDeployexampleHtml} from "../actions/actions";
-import {fetchParallaxIntrosectionHtml} from "../actions/actions";
-import {fetchParallaxEndangeredsectionHtml} from "../actions/actions";
-import {fetchParallaxPreservesectionHtml} from "../actions/actions";
+import {fetchParallaxHtml} from "../actions/actions_parallax-landing";
+import {fetchParallaxPropsexampleJs} from "../actions/actions_parallax-landing";
+import {fetchParallaxMethodsexampleJs} from "../actions/actions_parallax-landing";
+import {fetchParallaxPropsDemoexampleJson} from "../actions/actions_parallax-landing";
+import {fetchParallaxCssDemoexampleCss} from "../actions/actions_parallax-landing";
+import {fetchParallaxDeployexampleHtml} from "../actions/actions_parallax-landing";
+import {fetchParallaxIntrosectionHtml} from "../actions/actions_parallax-landing";
+import {fetchParallaxEndangeredsectionHtml} from "../actions/actions_parallax-landing";
+import {fetchParallaxPreservesectionHtml} from "../actions/actions_parallax-landing";
+//
 import BackgroundCanvas from "../components/background-canvas";
 import {updateState} from "../toolbox/toolbox";
 import ReactGA from "react-ga";
@@ -27,10 +28,6 @@ class ParallaxLanding extends Component
 	constructor(props)
 	{
 	    super(props);
-	}
-	getChildContext()
-	{
-		// empty
 	}
 	getInitialState()
 	{
@@ -58,34 +55,28 @@ class ParallaxLanding extends Component
 			= this;
 		let reactparallaxRef
 			= scopeProxy.refs.reactparallax;
-		let setViewLoaded
-			= scopeProxy.context.setViewLoaded;
-		let setLayoutMode
-			= scopeProxy.context.setLayoutMode;
-		let updateNavigationState
-			= scopeProxy.context.updateNavigationState;
 		let navigationSection
 			= 0;
 		//
 		window.requestAnimationFrame(()=>
 		{
-			// Updating the section index this way lets the
-			// state of the nagigation cluster fully initialize
-			// before the activeKey value is updated. This is
-			// necessary for it to be possible to navigate
-			// back to the wares section from within a component
-			// landing page when the component landing page is
-			// directly accessed via the url bar in the browser.
-			updateNavigationState(navigationSection);
+			let updateNavigationState
+				= scopeProxy.props.updateNavigationstateAction;
+			let setViewLoaded
+				= scopeProxy.props.setViewLoadedAction;
+			let setLayoutMode
+				= scopeProxy.props.setLayoutModeAction;
+			//
+			let setviewTimeout =
+				setTimeout(function()
+				{
+					setViewLoaded(true);
+					setLayoutMode("full");
+					updateNavigationState(navigationSection);
+				},
+				500);
+			//
 		});
-		let setviewTimeout =
-			setTimeout(function()
-			{
-				setViewLoaded(true);
-				setLayoutMode("full");
-			},
-			500);
-		//
 	}
 	componentWillUpdate()
 	{
@@ -93,10 +84,7 @@ class ParallaxLanding extends Component
 	}
 	componentDidUpdate()
 	{
-		window.requestAnimationFrame(function()
-		{
-			// empty
-		});
+		// empty
 	}
 	render()
 	{
@@ -306,37 +294,41 @@ class ParallaxLanding extends Component
 	//
 	static contextTypes =
 		{
-			"transitionBody":PropTypes.func,
-			"updateNavigationState":PropTypes.func,
-			"setViewLoaded":PropTypes.func,
-			"setLayoutMode":PropTypes.func
+			// empty
 		}
 	//
 }
-function mapAxiosstateToReactprops(axiosState)
+// Map Redux state items to this.props properties
+// each time the Redux state changes. When that
+// happens, the render() function is called
+// and the DOM is updated according to any
+// changes that happened in this.props. Use this
+// to retrieve values from the Redux state and
+// place them in this.props.
+function mapReduxstateToProps(reduxState)
 {
-	// This function is only called when the axios
-	// response updates the application state. Once
-	// this function is called, the component state
-	// is updated which causes the render() function
-	// to execute.
 	return(
 	{
-		// When the application state (state.posts.all) is
-		// updated by the axios promise, the promise response
-		// is assigned the component state this.content.posts.
-		"html":axiosState.content.html,
-		"parallaxPropsexampleJs":axiosState.content.parallaxPropsexampleJs,
-		"parallaxMethodsexampleJs":axiosState.content.parallaxMethodsexampleJs,
-		"parallaxPropsDemoexampleJson":axiosState.content.parallaxPropsDemoexampleJson,
-		"parallaxCssDemoexampleCss":axiosState.content.parallaxCssDemoexampleCss,
-		"parallaxDeployexampleHtml":axiosState.content.parallaxDeployexampleHtml,
-		"parallaxIntrosectionHtml":axiosState.content.parallaxIntrosectionHtml,
-		"parallaxEndangeredsectionHtml":axiosState.content.parallaxEndangeredsectionHtml,
-		"parallaxPreservesectionHtml":axiosState.content.parallaxPreservesectionHtml
+		"html":reduxState.parallaxReducer.html,
+		"parallaxPropsexampleJs":reduxState.parallaxReducer.parallaxPropsexampleJs,
+		"parallaxMethodsexampleJs":reduxState.parallaxReducer.parallaxMethodsexampleJs,
+		"parallaxPropsDemoexampleJson":reduxState.parallaxReducer.parallaxPropsDemoexampleJson,
+		"parallaxCssDemoexampleCss":reduxState.parallaxReducer.parallaxCssDemoexampleCss,
+		"parallaxDeployexampleHtml":reduxState.parallaxReducer.parallaxDeployexampleHtml,
+		"parallaxIntrosectionHtml":reduxState.parallaxReducer.parallaxIntrosectionHtml,
+		"parallaxEndangeredsectionHtml":reduxState.parallaxReducer.parallaxEndangeredsectionHtml,
+		"parallaxPreservesectionHtml":reduxState.parallaxReducer.parallaxPreservesectionHtml,
+		"setViewLoadedAction":reduxState.mainReducer.setViewloadedAction,
+		"setLayoutModeAction":reduxState.mainReducer.setLayoutmodeAction,
+		"updateNavigationstateAction":reduxState.navigationReducer.updateNavigationstateAction
 	});
 }
-export default connect(mapAxiosstateToReactprops,
+// Map Redux action-creators to this.props properties
+// when the component is initialized. This gives access
+// to each action-creator to the component from within
+// this.props so that actions can be dispatched. Use
+// this to initially establish values in the Redux state.
+export default connect(mapReduxstateToProps,
 {
 	"fetchParallaxHtml":fetchParallaxHtml,
 	"fetchParallaxPropsexampleJs":fetchParallaxPropsexampleJs,
